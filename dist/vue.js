@@ -742,6 +742,7 @@
       // order
       subs.sort(function (a, b) { return a.id - b.id; });
     }
+    // 通知更新后，所有watcher批量执行它们的update()
     for (var i = 0, l = subs.length; i < l; i++) {
       subs[i].update();
     }
@@ -937,6 +938,7 @@
     // 创建dep目的？
     // 数组添加或删除成员 
     // 对象添加或删除属性 Vue.set/delete
+    // 需要发送通知
     this.dep = new Dep();
 
     this.vmCount = 0;
@@ -1943,6 +1945,7 @@
     pending = false;
     var copies = callbacks.slice(0);
     callbacks.length = 0;
+    // 将callbacks中的所有回调执行一遍
     for (var i = 0; i < copies.length; i++) {
       copies[i]();
     }
@@ -1968,6 +1971,8 @@
   // completely stops working after triggering a few times... so, if native
   // Promise is available, we will use it:
   /* istanbul ignore next, $flow-disable-line */
+
+  // 首选Promise
   if (typeof Promise !== 'undefined' && isNative(Promise)) {
     var p = Promise.resolve();
     timerFunc = function () {
@@ -2015,6 +2020,8 @@
 
   function nextTick (cb, ctx) {
     var _resolve;
+
+    // 放入回调数组中一个包装函数，可以处理cb中可能的错误
     callbacks.push(function () {
       if (cb) {
         try {
@@ -2028,6 +2035,8 @@
     });
     if (!pending) {
       pending = true;
+
+      // 时间函数异步执行任务
       timerFunc();
     }
     // $flow-disable-line
@@ -4332,12 +4341,16 @@
     // do not cache length because more watchers might be pushed
     // as we run existing watchers
     for (index = 0; index < queue.length; index++) {
+      // 每次获取一个watcher实例
       watcher = queue[index];
+
       if (watcher.before) {
         watcher.before();
       }
       id = watcher.id;
       has[id] = null;
+
+      // watcher真正的执行函数其实是run
       watcher.run();
       // in dev build, check and stop circular updates.
       if ( has[id] != null) {
@@ -4409,9 +4422,11 @@
    */
   function queueWatcher (watcher) {
     var id = watcher.id;
+    // 去重：防止watcher多次入队
     if (has[id] == null) {
       has[id] = true;
       if (!flushing) {
+        // 入队
         queue.push(watcher);
       } else {
         // if already flushing, splice the watcher based on its id
@@ -4430,6 +4445,8 @@
           flushSchedulerQueue();
           return
         }
+        // $nextTick
+        // 异步方式执行刷新队列方法
         nextTick(flushSchedulerQueue);
       }
     }
@@ -4573,6 +4590,7 @@
     } else if (this.sync) {
       this.run();
     } else {
+      // watcher入队
       queueWatcher(this);
     }
   };
@@ -5854,6 +5872,8 @@
 
   var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
+  // 判断两个节点是相同节点
+  // 核心的两个必要条件：key和tag
   function sameVnode (a, b) {
     return (
       a.key === b.key && (
@@ -5893,9 +5913,11 @@
     var i, j;
     var cbs = {};
 
+    // 平台特有属性、节点操作
     var modules = backend.modules;
     var nodeOps = backend.nodeOps;
 
+    // 把这些操作存入cbs，未来在patch节点时统一调用
     for (i = 0; i < hooks.length; ++i) {
       cbs[hooks[i]] = [];
       for (j = 0; j < modules.length; ++j) {
@@ -6207,6 +6229,7 @@
     }
 
     function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
+      // 4个游标和对应的4个vnode
       var oldStartIdx = 0;
       var newStartIdx = 0;
       var oldEndIdx = oldCh.length - 1;
@@ -6215,6 +6238,8 @@
       var newEndIdx = newCh.length - 1;
       var newStartVnode = newCh[0];
       var newEndVnode = newCh[newEndIdx];
+
+      // 后续查找需要的变量
       var oldKeyToIdx, idxInOld, vnodeToMove, refElm;
 
       // removeOnly is a special flag used only by <transition-group>
@@ -6226,41 +6251,53 @@
         checkDuplicateKeys(newCh);
       }
 
+      // 注意结束条件，开头和结束游标不能重合
       while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
         if (isUndef(oldStartVnode)) {
           oldStartVnode = oldCh[++oldStartIdx]; // Vnode has been moved left
         } else if (isUndef(oldEndVnode)) {
           oldEndVnode = oldCh[--oldEndIdx];
         } else if (sameVnode(oldStartVnode, newStartVnode)) {
+          // 老开始和新开始
           patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
           oldStartVnode = oldCh[++oldStartIdx];
           newStartVnode = newCh[++newStartIdx];
         } else if (sameVnode(oldEndVnode, newEndVnode)) {
+          // 老结束和新结束
           patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx);
           oldEndVnode = oldCh[--oldEndIdx];
           newEndVnode = newCh[--newEndIdx];
         } else if (sameVnode(oldStartVnode, newEndVnode)) { // Vnode moved right
+          // 老开始和新结束
           patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx);
+          // 除了patch还要移动
           canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm));
           oldStartVnode = oldCh[++oldStartIdx];
           newEndVnode = newCh[--newEndIdx];
         } else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left
+          // 老结束和新开始相同
           patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
+          // 移动到队首
           canMove && nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm);
           oldEndVnode = oldCh[--oldEndIdx];
           newStartVnode = newCh[++newStartIdx];
         } else {
+          // 没有找到相同，循环查找相同
+          // 先从新的头部拿一个，去老的里面找相同
           if (isUndef(oldKeyToIdx)) { oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx); }
           idxInOld = isDef(newStartVnode.key)
             ? oldKeyToIdx[newStartVnode.key]
             : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx);
+          // 没找到，创建
           if (isUndef(idxInOld)) { // New element
             createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx);
           } else {
+            // 找到，patch
             vnodeToMove = oldCh[idxInOld];
             if (sameVnode(vnodeToMove, newStartVnode)) {
               patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
               oldCh[idxInOld] = undefined;
+              // patch同时移动到队首
               canMove && nodeOps.insertBefore(parentElm, vnodeToMove.elm, oldStartVnode.elm);
             } else {
               // same key but different element. treat as new element
@@ -6270,10 +6307,14 @@
           newStartVnode = newCh[++newStartIdx];
         }
       }
+
+      // 有一个数组全部处理完成
       if (oldStartIdx > oldEndIdx) {
+        // 老数组结束，批量创建
         refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm;
         addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue);
       } else if (newStartIdx > newEndIdx) {
+        // 新数组结束，批量删除
         removeVnodes(oldCh, oldStartIdx, oldEndIdx);
       }
     }
@@ -6303,6 +6344,7 @@
       }
     }
 
+    // 比对新旧vnode
     function patchVnode (
       oldVnode,
       vnode,
@@ -6344,33 +6386,44 @@
         return
       }
 
+      // 传入数据
       var i;
       var data = vnode.data;
       if (isDef(data) && isDef(i = data.hook) && isDef(i = i.prepatch)) {
         i(oldVnode, vnode);
       }
 
+      // 获取两个节点孩子
       var oldCh = oldVnode.children;
       var ch = vnode.children;
+
+      // 属性更新
       if (isDef(data) && isPatchable(vnode)) {
         for (i = 0; i < cbs.update.length; ++i) { cbs.update[i](oldVnode, vnode); }
         if (isDef(i = data.hook) && isDef(i = i.update)) { i(oldVnode, vnode); }
       }
+
+      // 新节点可能有孩子
       if (isUndef(vnode.text)) {
+        // 都有孩子，比孩子
         if (isDef(oldCh) && isDef(ch)) {
           if (oldCh !== ch) { updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly); }
         } else if (isDef(ch)) {
+          // 只有新的有孩子，创建孩子
           {
             checkDuplicateKeys(ch);
           }
           if (isDef(oldVnode.text)) { nodeOps.setTextContent(elm, ''); }
           addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
         } else if (isDef(oldCh)) {
+          // 只有老的有孩子，删除所有孩子
           removeVnodes(oldCh, 0, oldCh.length - 1);
         } else if (isDef(oldVnode.text)) {
+          // 都没有孩子
           nodeOps.setTextContent(elm, '');
         }
       } else if (oldVnode.text !== vnode.text) {
+        // 都是文本
         nodeOps.setTextContent(elm, vnode.text);
       }
       if (isDef(data)) {
@@ -6504,7 +6557,10 @@
       }
     }
 
+    // 返回真正的patch函数
     return function patch (oldVnode, vnode, hydrating, removeOnly) {
+
+      // 新节点不存在，删
       if (isUndef(vnode)) {
         if (isDef(oldVnode)) { invokeDestroyHook(oldVnode); }
         return
@@ -6513,16 +6569,21 @@
       var isInitialPatch = false;
       var insertedVnodeQueue = [];
 
+      // 老节点不存在，增
       if (isUndef(oldVnode)) {
         // empty mount (likely as component), create new root element
         isInitialPatch = true;
         createElm(vnode, insertedVnodeQueue);
       } else {
+        // 都存在
+        // 若存在真实节点，初始化
         var isRealElement = isDef(oldVnode.nodeType);
         if (!isRealElement && sameVnode(oldVnode, vnode)) {
           // patch existing root node
+          // patch算法发生的地方，diff
           patchVnode(oldVnode, vnode, insertedVnodeQueue, null, null, removeOnly);
         } else {
+          // 真实节点，创建新dom树并追加，删除老的模板
           if (isRealElement) {
             // mounting to a real element
             // check if this is server-rendered content and if we can perform
@@ -6551,10 +6612,13 @@
           }
 
           // replacing existing element
+          // 获取老dom
           var oldElm = oldVnode.elm;
+          // 获取父元素，body
           var parentElm = nodeOps.parentNode(oldElm);
 
           // create new node
+          // 创建正课dom树
           createElm(
             vnode,
             insertedVnodeQueue,
@@ -6562,8 +6626,9 @@
             // leaving transition. Only happens when combining transition +
             // keep-alive + HOCs. (#4590)
             oldElm._leaveCb ? null : parentElm,
-            nodeOps.nextSibling(oldElm)
+            nodeOps.nextSibling(oldElm) // 放到老节点后面
           );
+
 
           // update parent placeholder node element, recursively
           if (isDef(vnode.parent)) {
@@ -6596,6 +6661,7 @@
           }
 
           // destroy old node
+          // 删除老节点树
           if (isDef(parentElm)) {
             removeVnodes([oldVnode], 0, 0);
           } else if (isDef(oldVnode.tag)) {
@@ -8495,6 +8561,7 @@
   // built-in modules have been applied.
   var modules = platformModules.concat(baseModules);
 
+  // 工厂函数返回web平台特有的patch
   var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules });
 
   /**

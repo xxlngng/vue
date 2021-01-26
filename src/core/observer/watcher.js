@@ -99,12 +99,14 @@ export default class Watcher {
    * Evaluate the getter, and re-collect dependencies.
    */
   get () {
+    // Dep.target 加入
     pushTarget(this)
     let value
     const vm = this.vm
     try {
-      value = this.getter.call(vm, vm)
-    } catch (e) {
+          // getter是传进来的expOrFn
+          value = this.getter.call(vm, vm);
+        } catch (e) {
       if (this.user) {
         handleError(e, vm, `getter for watcher "${this.expression}"`)
       } else {

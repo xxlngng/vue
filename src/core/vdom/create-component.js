@@ -155,6 +155,7 @@ export function createComponent (
 
   // transform component v-model data into props & events
   // 双绑相关逻辑
+  // data中存在vmodel选项时，做相应操作
   if (isDef(data.model)) {
     transformModel(Ctor.options, data)
   }
@@ -258,9 +259,12 @@ function mergeHook (f1: any, f2: any): Function {
 // transform component v-model info (value and callback) into
 // prop and event handler respectively.
 function transformModel (options, data: any) {
+  // 如果用户定义自定义属性名称或者时间名称则使用他们
+  // 否则使用默认的value和input
   const prop = (options.model && options.model.prop) || 'value'
   const event = (options.model && options.model.event) || 'input'
   ;(data.attrs || (data.attrs = {}))[prop] = data.model.value
+  // 如果存在v-model=“foo” @input="onInput"的情况
   const on = data.on || (data.on = {})
   const existing = on[event]
   const callback = data.model.callback

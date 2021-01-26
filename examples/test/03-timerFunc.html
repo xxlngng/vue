@@ -26,6 +26,13 @@
                     // 这里才是最新的值
                     console.log('p1.innerHTML:' + p1.innerHTML)
                 })
+                /**
+                 * 断点： 
+                 * watcher里的 update() 里queueWatcher 入队 => scheduler 的 nestTick(flushSchedulerQueue) 异步 =》 scheduler里
+                 watcher.run() => next-tick里的timerFunc()
+                 * 
+                 * 2. patch.js 574hang const oldCh = oldVnode.children 
+                */
 
                 this.foo = Math.random()
                 console.log('3:' + this.foo);

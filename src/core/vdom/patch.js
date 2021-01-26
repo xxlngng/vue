@@ -69,6 +69,7 @@ function createKeyToOldIdx (children, beginIdx, endIdx) {
   return map
 }
 
+// 23456789
 export function createPatchFunction (backend) {
   let i, j
   const cbs = {}
@@ -145,6 +146,7 @@ export function createPatchFunction (backend) {
     }
 
     vnode.isRootInsert = !nested // for transition enter check
+    // 自定义组件
     if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
       return
     }
@@ -215,6 +217,7 @@ export function createPatchFunction (backend) {
     let i = vnode.data
     if (isDef(i)) {
       const isReactivated = isDef(vnode.componentInstance) && i.keepAlive
+      // 关键
       if (isDef(i = i.hook) && isDef(i = i.init)) {
         i(vnode, false /* hydrating */)
       }
@@ -405,6 +408,7 @@ export function createPatchFunction (backend) {
     }
   }
 
+  // 更新子节点
   function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
     // 4个游标和对应的4个vnode
     let oldStartIdx = 0

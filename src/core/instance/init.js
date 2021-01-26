@@ -54,7 +54,7 @@ export function initMixin (Vue: Class<Component>) {
     vm._self = vm
     initLifecycle(vm) // $parent/$children等等
     initEvents(vm) // 事件监听
-    initRender(vm) // 插槽、_c...
+    initRender(vm) // 插槽、_c... 、$createElement
     callHook(vm, 'beforeCreate')
     initInjections(vm) // resolve injections before data/props
     initState(vm) // 初始化data、prop、method并执行响应式

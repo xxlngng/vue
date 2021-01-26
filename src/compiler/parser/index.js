@@ -96,7 +96,8 @@ export function parse (
 
   delimiters = options.delimiters
 
-  // 核心步骤
+  // 核心步骤 
+  // 栈解析标签等
   const stack = []
   const preserveWhitespace = options.preserveWhitespace !== false
   const whitespaceOption = options.whitespace
@@ -205,6 +206,7 @@ export function parse (
   }
 
   // 核心方法
+  // 解析html
   parseHTML(template, {
     warn,
     expectHTML: options.expectHTML,
@@ -284,6 +286,7 @@ export function parse (
       } else if (!element.processed) {
         // structural directives
         // 处理结构型指令
+        // for 优先级大于 if
         processFor(element)
         processIf(element)
         processOnce(element)

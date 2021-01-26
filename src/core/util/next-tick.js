@@ -31,6 +31,7 @@ function flushCallbacks () {
 // where microtasks have too high a priority and fire in between supposedly
 // sequential events (e.g. #4521, #6690, which have workarounds)
 // or even between bubbling of the same event (#6566).
+// Promise》微任务》宏任务》
 let timerFunc
 
 // The nextTick behavior leverages the microtask queue, which can be accessed

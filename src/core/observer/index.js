@@ -45,6 +45,7 @@ export class Observer {
     // 创建dep目的？
     // 数组添加或删除成员 
     // 对象添加或删除属性 Vue.set/delete
+    // 需要发送通知
     this.dep = new Dep()
 
     this.vmCount = 0

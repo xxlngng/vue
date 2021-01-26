@@ -8,13 +8,24 @@
 
 <body>
     <div id="demo">
-        <h1>数据响应化</h1>
+        <!-- <h1>数据响应化</h1> -->
         <p>{{obj.foo}}</p>
     </div>
     <script>
         // 创建实例
         // 会有几个Observer？Dep？Watcher？
         // 2 4 1
+        /**
+         * 有几个对象就有多个个Ob
+         * 两个key就有两个dep，对象又产生两个dep
+         * 断点：
+         * 1.state.js initData(vm) 54行 
+         * 2. ob = new Observer(value) 138hang 
+         * 3. Observer43 行 
+         * 4. 158行 defineReactive
+         * 5. dep.depend() 181行
+         * 
+         * */ 
         const app = new Vue({
             el: '#demo',
             data: { 

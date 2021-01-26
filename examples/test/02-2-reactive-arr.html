@@ -20,7 +20,10 @@
             data: { arr: ['foo', 'bar'] },
             mounted() {
                 setTimeout(() => {
-                    this.arr.push('baz')
+                    // this.arr.push('baz')
+                    // this.arr.length = 0
+                    // this.arr.splice(0)
+                    this.arr = [1,2,3]
                 }, 1000);
             }
         });

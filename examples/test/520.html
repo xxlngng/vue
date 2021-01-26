@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>给我最可爱的笑笑小猪猪</title>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    ul,
+    li,
+    ol,
+    dl,
+    dd,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      border: none;
+    }
+
+    ol,
+    ul {
+      list-style: none;
+    }
+
+    .clearfix:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    .fl {
+      float: left;
+    }
+
+    .fr {
+      float: right;
+    }
+
+    body,
+    html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: -webkit-radial-gradient(center, #0dd8d8, rgb(46, 8, 88));
+    }
+
+    .heartBox {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+
+    .myHeart {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform: rotate(45deg);
+      animation: heartMove 10s infinite alternate;
+      z-index: 10;
+    }
+
+    .myHeart div {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgb(255, 0, 200);
+    }
+
+    .myHeart .two {
+      right: 0;
+      bottom: 0;
+      width: 200px;
+      height: 200px;
+    }
+
+    .myHeart .one {
+      left: 0;
+      bottom: 0;
+      border-radius: 50%;
+    }
+
+    .myHeart .three {
+      top: 0;
+      right: 0;
+      border-radius: 50%;
+    }
+
+    .myHeart p {
+      width: 200px;
+      height: 30px;
+      font: bold 25px/30px "";
+      text-align: center;
+    }
+
+    .myHeart p {
+      position: absolute;
+      right: 0;
+      bottom: 85px;
+      transform: rotate(-45deg);
+    }
+
+    .balloonBox {
+      width: 100%;
+      height: 100%;
+    }
+
+    .balloon {
+      position: absolute;
+      border-radius: 50%;
+      text-align: center;
+    }
+
+    .balloon:after {
+      content: '';
+      position: absolute;
+      background: rgba(189, 207, 21, 0.96);
+      height: 80px;
+      width: 2px;
+      left: 0;
+      right: 0;
+      bottom: -80px;
+      margin: auto;
+    }
+
+    @-webkit-keyframes heartMove {
+      10% {
+        transform: rotate(45deg) scale(1.1);
+        text-shadow: 0 0 5px #fff;
+        opacity: 0.2;
+        color: rgb(122, 196, 26);
+      }
+
+      20% {
+        transform: rotate(45deg) scale(1.2);
+        text-shadow: 0 0 5px #fff;
+      }
+
+      30% {
+        transform: rotate(45deg) scale(1.3);
+        text-shadow: 0 0 5px #fff;
+      }
+
+      40% {
+        transform: rotate(45deg) scale(1.2);
+        text-shadow: 0 0 5px #fff;
+      }
+
+      50% {
+        transform: rotate(45deg) scale(1.3);
+        text-shadow: 0 0 5px #fff;
+      }
+
+      60% {
+        transform: rotate(45deg) scale(1.2);
+        text-shadow: 0 0 5px #fff;
+      }
+
+      70% {
+        transform: rotate(45deg) scale(1.3);
+        text-shadow: 0 0 5px #fff;
+      }
+
+      80% {
+        transform: rotate(45deg) scale(1.2);
+        text-shadow: 0 0 10px #fff;
+      }
+
+      90% {
+        transform: rotate(45deg) scale(1.1);
+        text-shadow: 0 0 5px #fff;
+        opacity: 1;
+        color: rgb(219, 190, 25);
+      }
+    }
+
+    /* xin */
+    #navg {
+      width: 1240px;
+      margin: auto;
+    }
+
+    .tagBall {
+      width: 500px;
+      height: 500px;
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      margin-left: -250px;
+    }
+
+    .tag {
+      display: block;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      color: #000;
+      text-decoration: none;
+      font-size: 15px;
+      font-family: "微软雅黑";
+      font-weight: bold;
+    }
+
+    .tag:hover {
+      border: 1px solid #666;
+    }
+
+    .form_vav td {
+      color: #a78b6f;
+    }
+
+    #dadiv {
+      position: relative;
+      width: 100%;
+      height: 600px;
+    }
+
+    #aa {
+      height: auto;
+      width: 520px;
+      margin: auto;
+      position: absolute;
+      left: 50%;
+      margin-left: -260px;
+      z-index: 999;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      background: -webkit-linear-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
+      color: transparent;
+      -webkit-background-clip: text;
+      background-size: 200% 100%;
+      animation: masked-animation 1s infinite linear;
+    }
+
+    @-webkit-keyframes masked-animation {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: -100% 0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <p id="aa">此时此刻只能用52种语言的“我爱你”表达我对你的爱意，希望你在世界的每个角落都能感受到我对你的爱mua~</p>
+  <!-- <div style="display:none" id="w"> -->
+
+  </div>
+  <div class="heartBox">
+
+    <div class="myHeart">
+      <div class="one"></div>
+      <div class="two"></div>
+      <div class="three"></div>
+      <p>520</p>
+    </div>
+  </div>
+  <div class="balloonBox"></div>
+
+  <div class="dadiv">
+    <div class="tagBall">
+      <a class="tag" href="#">我爱你</a>
+      <a class="tag" href="#">I love you</a>
+      <a class="tag" href="#">Ek het jou lief</a>
+      <a class="tag" href="#">Te dua</a>
+      <a class="tag" href="#">Ana behibek</a>
+      <a class="tag" href="#">Yes kez sirumen</a>
+      <a class="tag" href="#">M’bi fe</a>
+      <a class="tag" href="#">Aamee tuma ke bhalo aashi</a>
+      <a class="tag" href="#">Obicham te</a>
+      <a class="tag" href="#">Soro lahn nhee ah</a>
+      <a class="tag" href="#">T’estimo</a>
+      <a class="tag" href="#">Ne mohotatse</a>
+      <a class="tag" href="#">Ndimakukonda</a>
+      <a class="tag" href="#">Mi aime jou</a>
+      <a class="tag" href="#">Volim te</a>
+      <a class="tag" href="#">Miluji te</a>
+      <a class="tag" href="#">Jeg Elsker Dig</a>
+      <a class="tag" href="#">Ik hou van jou</a>
+      <a class="tag" href="#">Mi amas vin</a>
+      <a class="tag" href="#">Ma armastan sind</a>
+      <a class="tag" href="#">Afgreki’</a>
+      <a class="tag" href="#">Eg elski teg</a>
+      <a class="tag" href="#">Doset daram</a>
+      <a class="tag" href="#">Mahal kita</a>
+      <a class="tag" href="#">Mina rakastan sinua</a>
+      <a class="tag" href="#">Je t’aime, Je t’adore</a>
+      <a class="tag" href="#">Ich liebe dich</a>
+      <a class="tag" href="#">S’agapo</a>
+      <a class="tag" href="#">Aishiteru</a>
+      <a class="tag" href="#">Naanu ninna preetisuttene</a>
+      <a class="tag" href="#">Kaluguran daka </a>
+      <a class="tag" href="#">Aloha wau ia oi</a>
+      <a class="tag" href="#">Sarang Heyo</a>
+      <a class="tag" href="#">Volim te</a>
+      <a class="tag" href="#">Te ubesk</a>
+      <a class="tag" href="#">Ikh hob dikh</a>
+      <a class="tag" href="#">’Rwy’n dy garu</a>
+      <a class="tag" href="#">Anh ye^u em</a>
+      <a class="tag" href="#">mai aap say pyaar karta hoo</a>
+      <a class="tag" href="#">Ya tebe kahayu</a>
+      <a class="tag" href="#">Seni Seviyorum</a>
+      <a class="tag" href="#">Phom rak khun</a>
+      <a class="tag" href="#">Ich lieb Di</a>
+      <a class="tag" href="#">Jag alskar dig</a>
+      <a class="tag" href="#">Iay ovlay ouyay</a>
+      <a class="tag" href="#">Te amo</a>
+      <a class="tag" href="#">Jeg Elsker Deg</a>
+      <a class="tag" href="#">Nakupenda</a>
+      <a class="tag" href="#">Ana moajaba bik</a>
+      <a class="tag" href="#">Taim i’ ngra leat</a>
+      <a class="tag" href="#">Saya cinta padamu</a>
+      <a class="tag" href="#">Ti amo</a>
+    </div>
+  </div>
+
+  <!-- <script>
+    var index = 0;
+    var word = document.getElementById("w").innerHTML;
+
+    function type() {
+      document.getElementById("aa").innerText = word.substring(0, index++);
+    }
+    setInterval(type, 200);
+
+  </script> -->
+
+  <script>
+    var tagEle = "querySelectorAll" in document ? document.querySelectorAll(".tag") : getClass("tag"),
+      paper = "querySelectorAll" in document ? document.querySelector(".tagBall") : getClass("tagBall")[0];
+    RADIUS = 220,
+      fallLength = 500,
+      tags = [],
+      angleX = Math.PI / 500,
+      angleY = Math.PI / 500,
+      CX = paper.offsetWidth / 2,
+      CY = paper.offsetHeight / 2,
+      EX = paper.offsetLeft + document.body.scrollLeft + document.documentElement.scrollLeft,
+      EY = paper.offsetTop + document.body.scrollTop + document.documentElement.scrollTop;
+
+    function getClass(className) {
+      var ele = document.getElementsByTagName("*");
+      var classEle = [];
+      for (var i = 0; i < ele.length; i++) {
+        var cn = ele[i].className;
+        if (cn === className) {
+          classEle.push(ele[i]);
+        }
+      }
+      return classEle;
+    }
+
+    function innit() {
+      for (var i = 0; i < tagEle.length; i++) {
+        var a, b;
+        var k = -1 + (2 * (i + 1) -
+          1) / tagEle.length;
+        var a = Math.acos(k);
+        var b = a * Math.sqrt(tagEle.length * Math.PI);
+        var x = RADIUS * Math.sin(a) *
+          Math.cos(b);
+        var y = RADIUS * Math.sin(a) * Math.sin(b);
+        var z = RADIUS * Math.cos(a);
+        var t = new tag(tagEle[i], x, y,
+          z);
+        tagEle[i].style.color = "rgb(" + parseInt(Math.random() * 255) + "," + parseInt(Math.random() * 255) + "," +
+          parseInt(Math.random() * 255) + ")";
+        tags.push(t);
+        t.move();
+      }
+    }
+    Array.prototype.forEach = function (callback) {
+      for (var i = 0; i < this.length; i++) {
+        callback.call(this[i]);
+      }
+    }
+
+    function animate() {
+      setInterval(function () {
+        rotateX();
+        rotateY();
+        tags.forEach(function () {
+          this.move();
+        })
+      }, 17)
+    }
+    if ("addEventListener" in window) {
+      paper.addEventListener("mousemove", function (event) {
+        var x = event.clientX - EX - CX;
+        var y = event.clientY - EY -
+          CY;
+        angleY = x * 0.0001;
+        angleX = y * 0.0001;
+      });
+    } else {
+      paper.attachEvent("onmousemove", function (event) {
+        var
+          x = event.clientX - EX - CX;
+        var y = event.clientY - EY - CY;
+        angleY = x * 0.0001;
+        angleX = y * 0.0001;
+      });
+    }
+
+    function
+    rotateX() {
+      var cos = Math.cos(angleX);
+      var sin = Math.sin(angleX);
+      tags.forEach(function () {
+        var y1 = this.y * cos -
+          this.z * sin;
+        var z1 = this.z * cos + this.y * sin;
+        this.y = y1;
+        this.z = z1;
+      })
+    }
+
+    function rotateY() {
+      var
+        cos = Math.cos(angleY);
+      var sin = Math.sin(angleY);
+      tags.forEach(function () {
+        var x1 = this.x * cos - this.z * sin;
+        var
+          z1 = this.z * cos + this.x * sin;
+        this.x = x1;
+        this.z = z1;
+      })
+    }
+    var tag = function (ele, x, y, z) {
+      this.ele = ele;
+      this.x = x;
+      this.y = y;
+      this.z = z;
+    }
+    tag.prototype = {
+      move: function () {
+        var scale = fallLength / (fallLength - this.z);
+        var alpha = (this.z + RADIUS) / (2 * RADIUS);
+        this.ele.style.fontSize = 15 * scale + "px";
+        this.ele.style.opacity = alpha + 0.5;
+        this.ele.style.filter = "alpha(opacity = " + (alpha + 0.5) * 100 + ")";
+        this.ele.style.zIndex = parseInt(scale * 100);
+        this.ele.style.left = this.x + CX - this.ele.offsetWidth / 2 + "px";
+        this.ele.style.top = this.y + CY - this.ele.offsetHeight / 2 + "px";
+      }
+    }
+    innit();
+    animate();
+
+  </script>
+
+  <script>
+    function color(self) {
+      var _color = randomMyColor();
+      if (_color == self.bg) {
+        color(self);
+      } else {
+        return _color;
+      }
+    }
+
+    function MyBalloon() {
+      this.div = document.createElement("div");
+      this.left = randomRange(0, 100);
+      this.top = randomRange(0, 50);
+      this.bg = randomMyColor();
+      this.color = color(this);
+      this.r = Math.random() * 40 + 20;
+      this.speedX = randomRange(-5, 5);
+      this.speedY = randomRange(-5, 5);
+    }
+    MyBalloon.prototype.draw = function (parent) {
+      this.parent = parent;
+      var _div = this.div;
+      var style = _div.style;
+      style.width = this.r * 2 + "px";
+      style.height = this.r * 2 + "px";
+      _div.className = 'balloon';
+      _div.innerHTML = '1314';
+      style.lineHeight = this.r * 2 + "px";
+      style.fontSize = this.r / 2 + "px";
+      style.left = this.left + "px";
+      style.top = this.top + "px";
+      style.background = this.bg;
+      style.color = this.color;
+      parent.appendChild(this.div);
+    }
+    MyBalloon.prototype.move = function () {
+      var maxLeft = this.parent.offsetWidth - this.r * 2;
+      var maxTop = this.parent.offsetHeight - this.r * 2;
+      var self = this;
+      var _div = self.div;
+      setInterval(function () {
+        var left = _div.offsetLeft + self.speedX;
+        var top = _div.offsetTop + self.speedY;
+        if (left <= 0) {
+          left = 0;
+          self.speedX *= -1;
+        }
+
+        if (top <= 0) {
+          top = 0;
+          self.speedY *= -1;
+        }
+
+        if (left >= maxLeft) {
+          left = maxLeft;
+          self.speedX *= -1;
+        }
+
+        if (top >= maxTop) {
+          top = maxTop;
+          self.speedY *= -1;
+        }
+        _div.style.left = left + "px";
+        _div.style.top = top + "px";
+      }, 30);
+    }
+
+    function randomRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function randomMyColor() {
+      var r = randomRange(0, 255);
+      var g = randomRange(0, 255);
+      var b = randomRange(0, 255);
+      var a = randomRange(0, 1);
+      return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+    }
+
+    function draw() {
+      var n = 1;
+      for (var i = 0; i <= 8; i++) {
+        var b = new MyBalloon();
+        b.draw(document.body.getElementsByClassName('balloonBox')[0]);
+        b.move();
+      }
+    }
+    draw();
+
+  </script>
+</body>
+
+</html>

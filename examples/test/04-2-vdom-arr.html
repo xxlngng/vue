@@ -22,6 +22,9 @@
             data: { arr: [1,2,3] },
             mounted() {
                 setTimeout(() => {
+                    /**
+                     * 断点 425hang while if(idUndef...)
+                     * */ 
                     // this.arr.push(4)
 
                     // 1,2,3
